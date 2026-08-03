@@ -8,28 +8,46 @@ dotenv.config();
 const User = require("../models/userModel");
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: "3d" });
 };
 
 /* CREATE USER ACCOUNT CONTROLLER FUNCTION */
+/* CREATE USER ACCOUNT CONTROLLER FUNCTION */
 const userCreateAcc = async (req, res) => {
+  console.log("CREATE DATA:", req.body);
+
   const { firstName, lastName, email, password } = req.body;
 
   try {
-    const user = await User.createAcc(firstName, lastName, email, password);
+    const user = await User.createAcc(
+      firstName,
+      lastName,
+      email,
+      password
+    );
 
-    // generating a json web token (jwt)
     const token = createToken(user._id);
 
-    res.status(200).json({ firstName, lastName, email, token });
+    res.status(200).json({
+      firstName,
+      lastName,
+      email,
+      token,
+    });
+
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log("CREATE ERROR:", error.message);
+
+    res.status(400).json({
+      error: error.message,
+    });
   }
 };
 
 /* USER LOGIN CONTROLLER FUNCTION */
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
+     console.log("LOGIN DATA:", req.body);
 
   try {
     const user = await User.login(email, password);

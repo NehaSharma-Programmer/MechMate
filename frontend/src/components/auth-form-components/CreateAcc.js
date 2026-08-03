@@ -68,14 +68,23 @@ const CreateAcc = () => {
   };
 
   /* Function to handle the account creation process */
-  const handleCreateAccount = async (createAccCredentials) => {
-    const { firstName, lastName } = createAccCredentials;
-    createAccCredentials.firstName = formatName(firstName);
-    createAccCredentials.lastName = formatName(lastName);
-    await createAcc(createAccCredentials);
-    reset();
-  };
+  
+const handleCreateAccount = async (createAccCredentials) => {
+  const { firstName, lastName } = createAccCredentials;
 
+  createAccCredentials.firstName = formatName(firstName);
+  createAccCredentials.lastName = formatName(lastName);
+
+  try {
+    await createAcc(createAccCredentials);
+
+    alert("Account created successfully!");
+    reset();
+
+  } catch (error) {
+    alert("Account creation failed!");
+  }
+};
   return (
     <section className="create-acc-section login-section">
       <div className="create-account-container login-container">
