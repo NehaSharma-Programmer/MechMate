@@ -65,7 +65,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (user) {
       const fetchData = async () => {
-        const response = await fetch("/api/bookings", {
+        const response = await fetch("https://mechmate.onrender.com/api/bookings", {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         const json = await response.json();
@@ -135,7 +135,7 @@ const Dashboard = () => {
   const deleteBooking = async (id, action) => {
     try {
       // Send a DELETE request to the server to remove the specified booking
-      const response = await fetch(`/api/bookings/remove-booking/${id}`, {
+      const response = await fetch(`https://mechmate.onrender.com/api/bookings/remove-booking/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${user.token}`,

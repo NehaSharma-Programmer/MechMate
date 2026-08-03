@@ -29,7 +29,7 @@ const DeleteConfirmModal = () => {
   const deleteBooking = async (action) => {
     try {
       const response = await fetch(
-        `/api/bookings/remove-booking/${selectedBookingId}`,
+        `https://mechmate.onrender.com/api/bookings/remove-booking/${selectedBookingId}`,
         {
           method: "DELETE",
           headers: {

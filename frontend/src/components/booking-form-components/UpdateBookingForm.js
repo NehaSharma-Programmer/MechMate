@@ -41,7 +41,7 @@ const UpdateBookingForm = () => {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: async () => {
-      const response = await fetch(`/api/bookings/${id}`, {
+      const response = await fetch(`https://mechmate.onrender.com/api/bookings/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
@@ -102,7 +102,7 @@ const UpdateBookingForm = () => {
       "dddd, MMMM D, YYYY HH:mmA"
     );
     try {
-      const response = await fetch(`/api/bookings/update-booking/${id}`, {
+      const response = await fetch(`https://mechmate.onrender.com/api/bookings/update-booking/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

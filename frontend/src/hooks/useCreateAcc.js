@@ -9,7 +9,7 @@ export const useCreateAcc = () => {
     const { rememberMe, ...createAccCredentialsToSend } = createAccCredentials;
 
     try {
-      const response = await fetch("/api/create-acc", {
+      const response = await fetch("https://mechmate.onrender.com/api/create-acc", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

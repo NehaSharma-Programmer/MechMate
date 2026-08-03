@@ -12,7 +12,7 @@ export const useLogin = () => {
     setLoginError(null);
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("https://mechmate.onrender.com/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

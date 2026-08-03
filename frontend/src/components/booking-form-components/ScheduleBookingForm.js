@@ -81,7 +81,7 @@ const ScheduleBookingForm = () => {
     newBooking.status = "SCHEDULED";
 
     try {
-      const response = await fetch("/api/bookings/schedule-booking", {
+      const response = await fetch("https://mechmate.onrender.com/api/bookings/schedule-booking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
