@@ -44,6 +44,51 @@ const Dashboard = () => {
   const showDeleteConfirmModal = (id) => {
     dispatch(openDcModal(id));
   };
+// Download Invoice Function
+const downloadInvoice = async (id) => {
+  try {
+    const response = await fetch(
+      `https://mechmate.onrender.com/api/bookings/invoice/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Invoice download failed");
+    }
+
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `MechMate-Invoice-${id}.pdf`;
+
+    document.body.appendChild(link);
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+
+    toast("Invoice downloaded successfully!", {
+      type: "success",
+    });
+
+  } catch (error) {
+    console.error("Invoice Error:", error);
+
+    toast("Invoice download failed!", {
+      type: "error",
+    });
+  }
+};
+
+
 
   /* Function to generate status flag CSS class names based on the current status value */
   const statusClass = (status) => {
@@ -283,6 +328,26 @@ const Dashboard = () => {
                                 deleteBooking(booking._id, "complete");
                               }}
                             />
+                            </div>
+
+                            <div className="invoice-icon-container">
+
+  <ReactTooltip
+    place="top"
+    content="Download Invoice"
+    anchorId={`invoice-icon-${booking._id}`}
+    variant="info"
+  ></ReactTooltip>
+
+  <button
+    id={`invoice-icon-${booking._id}`}
+    className="icon invoice-icon"
+    onClick={() => downloadInvoice(booking._id)}
+  >
+    📄
+  </button>
+
+
                           </div>
                         </td>
                       </tr>
