@@ -19,7 +19,7 @@ const requireAuth = async (req, res, next) => {
 
   // Verify the jwt using the jwt package - returns the payload from that token.
   try {
-    const { _id } = jwt.verify(token, process.env.SECRET);
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = await User.findOne({ _id }).select("_id");
     next();
