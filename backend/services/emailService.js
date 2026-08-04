@@ -3,7 +3,9 @@ const nodemailer = require("nodemailer");
 
 const sendBookingEmail = async (booking) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
@@ -36,7 +38,13 @@ const sendBookingEmail = async (booking) => {
     `,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Booking confirmation email sent successfully");
+  } catch (error) {
+    console.log("EMAIL ERROR:", error.message);
+    throw error;
+  }
 };
 
 module.exports = sendBookingEmail;
