@@ -1,4 +1,3 @@
-
 const nodemailer = require("nodemailer");
 
 const sendBookingEmail = async (booking) => {
@@ -6,13 +5,13 @@ const sendBookingEmail = async (booking) => {
   console.log("Sending email to:", booking.customerEmail);
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    family: 4,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false,
     },
   });
 
@@ -30,9 +29,7 @@ const sendBookingEmail = async (booking) => {
 
           <p>Hello <b>${booking.customerFirstName}</b>,</p>
 
-          <p>
-            Your service booking has been successfully scheduled.
-          </p>
+          <p>Your service booking has been successfully scheduled.</p>
 
           <h3>Booking Details:</h3>
 
@@ -45,9 +42,7 @@ const sendBookingEmail = async (booking) => {
 
           <br/>
 
-          <p>
-            Thank you for choosing <b>MechMate</b> 🚗
-          </p>
+          <p>Thank you for choosing <b>MechMate</b> 🚗</p>
         </div>
       `,
     };
@@ -57,7 +52,7 @@ const sendBookingEmail = async (booking) => {
     console.log("EMAIL SENT SUCCESSFULLY:", info.messageId);
 
   } catch (error) {
-    console.log("MAIL ERROR:", error.message);
+    console.log("MAIL ERROR:", error);
     throw error;
   }
 };
