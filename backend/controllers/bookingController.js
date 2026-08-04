@@ -2,7 +2,7 @@
 /** TAC SERVICE BOOKING APP BACKEND BOOKING CONTROLLER FILE **/
 
 const Booking = require("../models/bookingModel");
-
+const sendBookingEmail = require("../services/emailService");
 /* Get all service bookings */
 const getBookings = async (req, res) => {
   try {
@@ -64,7 +64,7 @@ const createBooking = async (req, res) => {
       ...req.body,
       userId,
     });
-
+    await sendBookingEmail(booking);
     const bookingsList = await Booking.find({ userId });
 
     res.status(201).json({

@@ -7,7 +7,7 @@
     "test": "mocha",
     "start": "node app.js",
     "server": "nodemon app.js",
-     "dev": "nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "jsonwebtoken": "9.0.0",
     "mongoose": "7.1.0",
     "morgan": "1.10.0",
+    "nodemailer": "^9.0.4",
     "validator": "13.9.0"
   },
   "devDependencies": {
