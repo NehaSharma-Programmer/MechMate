@@ -308,6 +308,13 @@ const downloadInvoice = async (id) => {
                               variant="info"
                             ></ReactTooltip>
                             <Link to={`/update-booking/${booking._id}`}>
+                            <div className="feedback-btn-container">
+  <Link to={`/feedback/${booking._id}`}>
+    <button className="feedback-btn">
+      ⭐ Give Feedback
+    </button>
+  </Link>
+</div>
                               <EditIcon
                                 id={`update-icon-${booking._id}`}
                                 className="icon update-icon"

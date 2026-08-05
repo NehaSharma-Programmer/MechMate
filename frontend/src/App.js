@@ -7,7 +7,7 @@ import CreateAccPage from "./pages/CreateAccPage";
 import ScheduleBookingPage from "./pages/ScheduleBookingPage";
 import UpdateBookingPage from "./pages/UpdateBookingPage";
 import DashboardPage from "./pages/DashboardPage";
-
+import FeedbackPage from "./pages/FeedbackPage";
 export default function App() {
   /* Getting and destructuring/extracting user information from authentication context */
   const { user } = useAuthContext();
@@ -45,6 +45,10 @@ export default function App() {
             path="/update-booking/:id"
             element={user ? <UpdateBookingPage /> : <Navigate to="/login" />}
           />
+          <Route
+  path="/feedback/:id"
+  element={user ? <FeedbackPage /> : <Navigate to="/login" />}
+/>
         </Routes>
       </BrowserRouter>
     </div>

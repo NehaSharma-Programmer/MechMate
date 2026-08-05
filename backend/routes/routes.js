@@ -14,6 +14,10 @@ const {
   deleteBooking,
   downloadInvoice,
 } = require("../controllers/bookingController");
+const {
+  createFeedback,
+  getFeedbacks,
+} = require("../controllers/feedbackController");
 
 const requireAuth = require("../middleware/requireAuth");
 
@@ -37,4 +41,8 @@ router.patch("/update-booking/:id", updateBooking);
 /* DELETE request to remove a service booking */
 router.delete("/remove-booking/:id", deleteBooking);
 
+/* Feedback Routes */
+router.post("/feedback", createFeedback);
+
+router.get("/feedback", getFeedbacks);
 module.exports = router;

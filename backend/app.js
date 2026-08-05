@@ -26,6 +26,7 @@ const app = express();
 // Routes
 const routes = require("./routes/routes");
 const userLoginRoutes = require("./routes/user");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 
 // Database
 const connectDB = require("./dbs/db");
@@ -43,6 +44,7 @@ app.use(helmet());
 /* API Routes */
 app.use("/api/bookings", routes);
 app.use("/api", userLoginRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 
 /* MongoDB Connection */
