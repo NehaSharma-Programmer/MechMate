@@ -5,7 +5,7 @@ import DashBoard from "../components/dashboard-components/Dashboard";
 import Footer from "../components/footer-components/Footer";
 import HelpModal from "../components/modal-components/HelpModal";
 import DeleteConfirmModal from "../components/modal-components/DeleteConfirmModal";
-
+import Chatbot from "../components/chatbot/Chatbot";
 const DashboardPage = () => {
   return (
     <div className="app-page">
@@ -13,6 +13,8 @@ const DashboardPage = () => {
       <DashBoard />
       <HelpModal />
       <DeleteConfirmModal />
+            <Chatbot/>
+
       <Footer />
     </div>
   );

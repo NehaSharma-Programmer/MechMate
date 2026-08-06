@@ -27,7 +27,7 @@ const app = express();
 const routes = require("./routes/routes");
 const userLoginRoutes = require("./routes/user");
 const feedbackRoutes = require("./routes/feedbackRoutes");
-
+const chatbotRoutes = require("./routes/chatbotRoutes");
 // Database
 const connectDB = require("./dbs/db");
 
@@ -45,7 +45,7 @@ app.use(helmet());
 app.use("/api/bookings", routes);
 app.use("/api", userLoginRoutes);
 app.use("/api/feedback", feedbackRoutes);
-
+app.use("/api/chatbot", chatbotRoutes);
 
 /* MongoDB Connection */
 connectDB();
