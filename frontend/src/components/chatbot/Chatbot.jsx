@@ -6,6 +6,7 @@ const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [listening, setListening] = useState(false);
+  const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState([
     {
       sender: "bot",
@@ -77,7 +78,7 @@ const speak = (text) => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
-
+    setTyping(true);
     try {
       const response = await fetch("https://mechmate.onrender.com/api/chatbot", {
         method: "POST",
@@ -90,7 +91,7 @@ const speak = (text) => {
       });
 
       const data = await response.json();
-
+      setTyping(false);
       setMessages((prev) => [
         ...prev,
         {
@@ -100,6 +101,9 @@ const speak = (text) => {
       ]);
       speak(data.reply);
     } catch (err) {
+       
+       setTyping(false);
+  
       setMessages((prev) => [
         ...prev,
         {
@@ -155,6 +159,12 @@ const speak = (text) => {
                 {msg.text}
               </p>
             ))}
+             {typing && (
+    <p>
+      <strong>AI:</strong> Typing...
+    </p>
+  )}
+
           </div>
 <div style={{display:"flex"}}>
 
