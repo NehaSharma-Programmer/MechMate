@@ -5,12 +5,68 @@ import "./Chatbot.css";
 const Chatbot = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [listening, setListening] = useState(false);
   const [messages, setMessages] = useState([
     {
       sender: "bot",
       text: "👋 Hi! I'm MechMate AI Assistant. How can I help you today?",
     },
   ]);
+const startListening = () => {
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice input is not supported in this browser");
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "en-US";
+  recognition.continuous = false;
+  recognition.interimResults = false;
+
+  recognition.start();
+
+  setListening(true);
+
+  recognition.onresult = (event) => {
+
+    const speechText =
+      event.results[0][0].transcript;
+
+    setMessage(speechText);
+    setListening(false);
+
+  };
+
+
+  recognition.onerror = () => {
+    setListening(false);
+  };
+
+
+  recognition.onend = () => {
+    setListening(false);
+  };
+
+};
+const speak = (text) => {
+  const speech = new SpeechSynthesisUtterance(text);
+
+  speech.lang = "en-US";
+  speech.rate = 1;
+  speech.pitch = 1;
+
+  window.speechSynthesis.speak(speech);
+};
+
+
+
+
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -42,6 +98,7 @@ const Chatbot = () => {
           text: data.reply,
         },
       ]);
+      speak(data.reply);
     } catch (err) {
       setMessages((prev) => [
         ...prev,
@@ -99,16 +156,29 @@ const Chatbot = () => {
               </p>
             ))}
           </div>
+<div style={{display:"flex"}}>
 
-          <input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            placeholder="Ask anything..."
-          />
+<input
+  style={{flex:1}}
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  placeholder="Ask anything..."
+/>
 
-          <button onClick={sendMessage}>
-            Send
-          </button>
+
+<button
+  onClick={startListening}
+>
+  {listening ? "🔴" : "🎤"}
+</button>
+
+
+<button onClick={sendMessage}>
+  Send
+</button>
+
+</div>
+          
         </div>
       )}
     </>
