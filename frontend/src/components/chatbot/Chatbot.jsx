@@ -65,6 +65,64 @@ const speak = (text) => {
   window.speechSynthesis.speak(speech);
 };
 
+const getLocation = () => {
+
+  setMessages((prev) => [
+    ...prev,
+    {
+      sender: "bot",
+      text: "📍 Finding your nearest service center...",
+    },
+  ]);
+
+  if (!navigator.geolocation) {
+    alert("Location is not supported");
+    return;
+  }
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    (position) => {
+
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "✅ Location found! Opening nearest service centers...",
+        },
+      ]);
+
+
+      const mapUrl =
+      `https://www.google.com/maps/search/vehicle+service+center/@${lat},${lng},15z`;
+
+
+      window.open(mapUrl, "_blank");
+
+    },
+
+
+    () => {
+
+      setMessages((prev)=>[
+        ...prev,
+        {
+          sender:"bot",
+          text:"❌ Please allow location permission to find service centers."
+        }
+      ]);
+
+    }
+
+  );
+
+};
+
 
 
 
@@ -181,7 +239,11 @@ const speak = (text) => {
 >
   {listening ? "🔴" : "🎤"}
 </button>
-
+<button
+  onClick={getLocation}
+>
+  📍
+</button>
 
 <button onClick={sendMessage}>
   Send
